@@ -1,0 +1,95 @@
+/* =========================
+    🔐 LOGIN OINARRIA
+========================= */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.background {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  box-sizing: border-box;
+}
+
+.card {
+  width: 320px;
+  max-width: 100%;
+  padding: 30px;
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.15);
+  /* Atzeko planoa lausotzeko efektua */
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+  text-align: center;
+  color: white;
+  box-sizing: border-box;
+}
+
+/* =========================
+    ✍️ TESTUAK
+========================= */
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+/* =========================
+    🧾 SARRERAK (INPUTS)
+========================= */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+
+  border: none;
+  border-radius: 10px;
+
+  outline: none;
+  box-sizing: border-box;
+  /* Mugikorretarako tamaina egokia */
+  font-size: 16px; 
+}
+
+/* =========================
+    🔘 BOTOIA
+========================= */
+button {
+  width: 100%;
+  padding: 12px;
+
+  margin-top: 10px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #111827;
+  color: white;
+
+  cursor: pointer;
+  /* Animazio leuna */
+  transition: 0.2s;
+
+  font-size: 16px;
+}
+
+button:hover {
+  /* Gainetik pasatzean pixka bat handitu */
+  transform: scale(1.03);
+  background: #000;
+}

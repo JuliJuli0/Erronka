@@ -1,0 +1,298 @@
+/* =========================
+    KOLOREAK
+========================= */
+:root {
+  --primary: #4f46e5;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+
+  --status-pending: #f59e0b;
+  --status-progress: #3b82f6;
+  --status-done: #10b981;
+
+  --danger: #ef4444;
+}
+
+/* =========================
+    BODY
+========================= */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-main);
+  margin: 0;
+  padding-bottom: 40px;
+}
+
+/* =========================
+    TOPBAR
+========================= */
+.topbar {
+  background: var(--card-bg);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+/* =========================
+    STATS
+========================= */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat {
+  background: var(--card-bg);
+  padding: 1.25rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  border-bottom: 4px solid #e2e8f0;
+}
+
+.stat h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.stat p {
+  margin: 5px 0 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* =========================
+    COLUMNAK
+========================= */
+.container-columnak {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 200px;
+}
+
+/* =========================
+    CARDS(PAKETEAK)
+========================= */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  transition: transform 0.2s, opacity 0.3s;
+  position: relative;
+  width: auto;
+}
+
+.card.completed {
+  opacity: 0.6;
+  filter: grayscale(0.7);
+  border: 2px solid var(--status-done);
+  transform: scale(0.98);
+}
+
+/* =========================
+    STATUS
+========================= */
+.status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.pending {
+  background: #fef3c7;
+  color: var(--status-pending);
+}
+
+.progress {
+  background: #dbeafe;
+  color: var(--status-progress);
+}
+
+.done {
+  background: #dcfce7;
+  color: var(--status-done);
+}
+
+/* =========================
+    MAPA
+========================= */
+.mapa-container {
+  width: 100%;
+  height: 150px;
+  background: #e5e7eb;
+  border-radius: 12px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.mapa-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* =========================
+    BOTOIAK
+========================= */
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.view {
+  background: #f1f5f9;
+  color: var(--text-main);
+}
+
+.ok {
+  background: var(--primary);
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+/* =========================
+   🔐 BOTONES EXTRA
+========================= */
+.btn-history {
+  background: #e0e7ff;
+  color: var(--primary);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-history:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* =========================
+    LOGOUT
+========================= */
+.btn-logout {
+  background: #fee2e2;
+  color: var(--danger);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-logout:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* =========================
+    POPUP
+========================= */
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup.show {
+  display: flex;
+}
+
+.modal-card {
+  width: 90%;
+  max-width: 420px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  transform: translateY(20px);
+  animation: pop 0.25s ease forwards;
+}
+
+.popup-burua {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  background-color: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.popup-gorputza {
+  padding: 20px;
+  color: #334155;
+  background-color: white;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.popup-map {
+  margin-top: 15px;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.popup-map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
