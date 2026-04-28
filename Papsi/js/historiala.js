@@ -7,29 +7,33 @@ function kargatuHistoriala() {
     fetch("php/get_historiala.php")
         .then(res => res.json())
         .then(data => {
-          cont.innerHTML = ""; 
-          data.forEach(item => {
-              const div = document.createElement("div");
-              div.className = "card";
-              div.innerHTML = `
-                  <h3>📦 Paketea: ${item.pakete_id} - ${item.hartzailea}</h3>
-                  <p>📝 ${item.azalpena}</p>
-                  <p>🕒 ${item.data_ordua}</p>
-              `;
-              cont.appendChild(div);
-          });
+            cont.innerHTML = ""; 
+            if (data.length === 0) {
+                cont.innerHTML = "<p>Ez dago mugimendurik historialean.</p>";
+                return;
+            }
+            data.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "card";
+                div.innerHTML = `
+                    <h3>📦 Paketea: ${item.pakete_id} - ${item.hartzailea}</h3>
+                    <p style="margin: 10px 0;">${item.azalpena}</p>
+                    <p style="color: #64748b; font-size: 0.85rem;">🕒 ${item.data_ordua}</p>
+                `;
+                cont.appendChild(div);
+            });
         })
         .catch(error => console.error("Errorea:", error));
 }
 
-// Orria kargatzean exekutatu funtzioa
 document.addEventListener("DOMContentLoaded", kargatuHistoriala);
 
 // =========================
 // 🔙 DASHBOARD-ERA ITZULI
 // =========================
 function itzuliDashboardera() {
-    window.location.href = "/reparto/dashboard.php";
+    // Usamos solo el nombre del archivo para que busque en la carpeta actual
+    window.location.href = "dashboard.php";
 }
 
 // =========================
@@ -41,7 +45,6 @@ function filtratu() {
     
     cards.forEach(card => {
         const contenido = card.textContent.toLowerCase();
-        // Testua badauka erakutsi, bestela ezkutatu
         card.style.display = contenido.includes(textua) ? "block" : "none";
     });
 }
@@ -66,9 +69,9 @@ function exportatuXML() {
         const data = card.querySelector("p:nth-of-type(2)").textContent; 
 
         xmlContent += '  <entrega>\n';
-        xmlContent += `    <titulua>${titulo}</titulua>\n`;
-        xmlContent += `    <azalpena>${azalpena}</azalpena>\n`;
-        xmlContent += `    <data>${data}</data>\n`;
+        xmlContent += `    <titulua>${titulo.replace(/[<&>]/g, "")}</titulua>\n`;
+        xmlContent += `    <azalpena>${azalpena.replace(/[<&>]/g, "")}</azalpena>\n`;
+        xmlContent += `    <data>${data.replace(/[<&>]/g, "")}</data>\n`;
         xmlContent += '  </entrega>\n';
     });
 
@@ -82,7 +85,6 @@ function exportatuXML() {
     link.download = 'historiala.xml'; 
     document.body.appendChild(link);
     link.click();
-    
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 }

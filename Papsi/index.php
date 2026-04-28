@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($fila = mysqli_fetch_assoc($result)) {
 
-        // 2. Pasahitza egiaztatu (Proiektu honetan testu arruntean dago)
+        // 2. Pasahitza egiaztatu 
         if ($pasahitza === $fila["pasahitza"]) {
 
             // 3. Rola egiaztatu: Banatzaileek bakarrik dute sarbidea
@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Banaketa</title>
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js"></script>
 </head>
 
 <body>
@@ -67,14 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <div class="card">
 
-        <h1>Banaketa</h1>
+        <h1>PakAG</h1>
         <p class="subtitle">Sartu zure Panelera</p>
 
-        <form method="POST" action="login.php">
+        <form method="POST" action="index.php">
 
             <input type="text" name="usuario" placeholder="Erabiltzailea" required>
             <input type="password" name="password" placeholder="Pasahitza" required>
-
+            <div id="pass-error" style="color: #ff4d4d; font-size: 12px; margin-top: -5px; margin-bottom: 10px; display: none;"></div>
             <button type="submit">Sartu</button>
 
         </form>
