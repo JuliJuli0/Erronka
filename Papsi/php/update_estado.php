@@ -7,18 +7,18 @@ $estado         = $_POST["estado"];
 $nan            = $_SESSION["user_nan"];
 $azalpena_extra = isset($_POST["azalpena"]) ? trim($_POST["azalpena"]) : "";
 
-// Decidir qué hacer según el estado recibido
+// Jasotako egoeraren arabera zer egin erabaki
 if ($estado === "biltegian") {
-    // 1. BUSCAR UN KUDEATZAILE REAL (Según tu tabla LANGILEA)
+    // 1. KUDEATZAILE BAT BILATU (LANGILEA taularen arabera)
     $sql_kud = "SELECT nan FROM LANGILEA WHERE rola = 'kudeatzailea' LIMIT 1";
     $res_kud = mysqli_query($conexion, $sql_kud);
     $row_kud = mysqli_fetch_assoc($res_kud);
     
-    // Si encuentra a Fatima (o cualquier jefe), se lo asigna. 
-    // Si no, usa el NAN de respaldo 34567890C.
+    // Kudeatzaileren bat aurkitzen badu, hari esleitzen dio paketea.
+    // Bestela, 34567890C NAN-a erabiliko du babes gisa.
     $nan_destino = ($row_kud) ? $row_kud['nan'] : "34567890C"; 
 
-    // 2. ACTUALIZAR: El paquete vuelve a 'zain' y cambia de dueño
+    // 2. EGUNERATU: Paketea 'zain' egoerara itzultzen da eta jabez aldatzen da
     $sql = "UPDATE BANAKETA SET egoera = 'zain', nan_langilea = ? WHERE pakete_id = ?";
     $stmt = mysqli_prepare($conexion, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $nan_destino, $id);
@@ -26,26 +26,27 @@ if ($estado === "biltegian") {
     $log_status = "⚠️ Arazoa: Biltegira itzulia";
 
 } elseif ($estado === "banatzen") {
-    // BANATU
+    // BANATZEN HASI
     $sql = "UPDATE BANAKETA SET egoera = 'banatzen' WHERE pakete_id = ? AND nan_langilea = ?";
     $stmt = mysqli_prepare($conexion, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $id, $nan);
     $log_status = "🚚 Banatzen hasita";
 
 } elseif ($estado === "entregatua") {
-    // ENTREGATU
+    // ENTREGATUA
     $sql = "UPDATE BANAKETA SET egoera = 'entregatua', data_entrega = NOW() WHERE pakete_id = ? AND nan_langilea = ?";
     $stmt = mysqli_prepare($conexion, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $id, $nan);
     $log_status = "✅ Entregatua";
 
 } else {
-    echo "error: estado desconocido";
+    echo "error: egoera ezezaguna";
     exit;
 }
 
+// Aldaketa gauzatu eta historialera gehitu
 if (mysqli_stmt_execute($stmt)) {
-    // Guardar en historial (log_id es AUTO_INCREMENT)
+    // Historialean gorde (log_id AUTO_INCREMENT da)
     $final_azalpena = ($azalpena_extra !== "") 
         ? $log_status . " | Oharra: " . $azalpena_extra 
         : $log_status;
